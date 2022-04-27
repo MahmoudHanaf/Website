@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Scrollspy </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <style>
+  body {
+    position: relative; 
+  }
+  #Part1 {padding-top:50px;height:500px;color: #fff; background-color: #d099e5;}
+  #Part2 {padding-top:50px;height:500px;color: #fff; background-color: #641342;}
+  #Part3 {padding-top:50px;height:500px;color: #fff; background-color: #4d3641;}
+  #Part4 {padding-top:50px;height:500px;color: #fff; background-color: #1a0b0e;}
+   </style>
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Scrollspy</a>
+    </div>
+    <div>
+      <div class="collapse navbar-collapse" id="navbar">
+        <ul class="nav navbar-nav">
+          <li><a href="#Part1">Part 1</a></li>
+          <li><a href="#Part2">Part 2 </a></li>
+          <li><a href="#Part3">Part 3 </a></li>
+          <li><a href="#Part4">Part 4 </a></li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>    
+
+<div id="Part1" class="container-fluid">
+  <h1>Part 1</h1>
+  <p>Create You Part</p>
+</div>
+<div id="Part2" class="container-fluid">
+  <h1>Part 2</h1>
+  <p>Create You Part</p>
+</div>
+<div id="Part3" class="container-fluid">
+  <h1>Part 3</h1>
+  <p>Create You Part</p>
+</div>
+<div id="Part4" class="container-fluid">
+  <h1>Part 4  </h1>
+  <p>Create You Part</p>
+</div>
+ </body>
+</html>

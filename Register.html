@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    
+    <link rel="stylesheet" href="css/Register.css" />
+    <link rel="stylesheet" href="css/all.min.css" />
+    <link rel="stylesheet" href="css/normalize.css" />
+     <!-- Google fons  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;400;800&display=swap" rel="stylesheet">
+
+    <script src='main.js'></script>
+
+    <script>
+        function passwordStrengthMeter(a){function b(){let a=c();d(a)}function c(){let a=0,b=/(?=.*[a-z])/,c=/(?=.*[A-Z])/,d=/(?=.*[0-9])/,e=new RegExp("(?=.{"+j+",})");return i.match(b)&&++a,i.match(c)&&++a,i.match(d)&&++a,i.match(e)&&++a,0==a&&0<i.length&&++a,a}function d(a){1===a?(g.className="password-strength-meter-score psms-25",k&&(k.textContent=l[1]||"Too simple"),f.dispatchEvent(new Event("onScore1",{bubbles:!0}))):2===a?(g.className="password-strength-meter-score psms-50",k&&(k.textContent=l[2]||"Simple"),f.dispatchEvent(new Event("onScore2",{bubbles:!0}))):3===a?(g.className="password-strength-meter-score psms-75",k&&(k.textContent=l[3]||"That's OK"),f.dispatchEvent(new Event("onScore3",{bubbles:!0}))):4===a?(g.className="password-strength-meter-score psms-100",k&&(k.textContent=l[4]||"Great password!"),f.dispatchEvent(new Event("onScore4",{bubbles:!0}))):(g.className="password-strength-meter-score",k&&(k.textContent=l[0]||"No data"),f.dispatchEvent(new Event("onScore0",{bubbles:!0})))}const e=document.createElement("style");document.body.prepend(e),e.innerHTML=`
+        ${a.containerElement} {
+          height: ${a.height||4}px;
+          background-color: #eee;
+          position: relative;
+          overflow: hidden;
+          border-radius: ${a.borderRadius.toString()||2}px;
+        }
+        ${a.containerElement} .password-strength-meter-score {
+          height: inherit;
+          width: 0%;
+          transition: .3s ease-in-out;
+          background: ${a.colorScore1||"#ff7700"};
+        }
+        ${a.containerElement} .password-strength-meter-score.psms-25 {width: 25%; background: ${a.colorScore1||"#ff7700"};}
+        ${a.containerElement} .password-strength-meter-score.psms-50 {width: 50%; background: ${a.colorScore2||"#ffff00"};}
+        ${a.containerElement} .password-strength-meter-score.psms-75 {width: 75%; background: ${a.colorScore3||"#aeff00"};}
+        ${a.containerElement} .password-strength-meter-score.psms-100 {width: 100%; background: ${a.colorScore4||"#00ff00"};}`;const f=document.getElementById(a.containerElement.slice(1));f.classList.add("password-strength-meter");let g=document.createElement("div");g.classList.add("password-strength-meter-score"),f.appendChild(g);const h=document.getElementById(a.passwordInput.slice(1));let i="";h.addEventListener("keyup",function(){i=this.value,b()});let j=a.pswMinLength||8,k=a.showMessage?document.getElementById(a.messageContainer.slice(1)):null,l=void 0===a.messagesList?["No data","Too simple","Simple","That's OK","Great password!"]:a.messagesList;return k&&(k.textContent=l[0]||"No data"),{containerElement:f,getScore:c}}
+          function passwordStrengthMeter(opts) {
+    
+    // Add styles inside body
+    const customStyles = document.createElement('style')
+    document.body.prepend(customStyles)
+    customStyles.innerHTML = `
+      ${opts.containerElement} {
+        height: ${opts.height || 4}px;
+        background-color: #eee;
+        position: relative;
+        overflow: hidden;
+        border-radius: ${opts.borderRadius.toString() || 2}px;
+      }
+      ${opts.containerElement} .password-strength-meter-score {
+        height: inherit;
+        width: 0%;
+        transition: .3s ease-in-out;
+        background: ${opts.colorScore1 || '#ff7700'};
+      }
+      ${opts.containerElement} .password-strength-meter-score.psms-25 {width: 25%; background: ${opts.colorScore1 || '#ff7700'};}
+      ${opts.containerElement} .password-strength-meter-score.psms-50 {width: 50%; background: ${opts.colorScore2 || '#ffff00'};}
+      ${opts.containerElement} .password-strength-meter-score.psms-75 {width: 75%; background: ${opts.colorScore3 || '#aeff00'};}
+      ${opts.containerElement} .password-strength-meter-score.psms-100 {width: 100%; background: ${opts.colorScore4 || '#00ff00'};}`
+    
+    // Container Element
+    const containerElement = document.getElementById(opts.containerElement.slice(1))
+    containerElement.classList.add('password-strength-meter')
+    
+    // Score Bar
+    let scoreBar = document.createElement('div')
+    scoreBar.classList.add('password-strength-meter-score')
+    
+    // Append score bar to container element
+    containerElement.appendChild(scoreBar)
+    
+    // Password input
+    const passwordInput = document.getElementById(opts.passwordInput.slice(1))
+    let passwordInputValue = ''
+    passwordInput.addEventListener('keyup', function() {
+      passwordInputValue = this.value
+      checkPassword()
+    })
+    
+    // Chosen Min Length
+    let pswMinLength = opts.pswMinLength || 8
+    
+    // Score Message
+    let scoreMessage = opts.showMessage ? document.getElementById(opts.messageContainer.slice(1)) : null
+    let messagesList = opts.messagesList === undefined ? ['No data', 'Too simple', 'Simple', 'That\'s OK', 'Great password!'] : opts.messagesList
+    if (scoreMessage) { scoreMessage.textContent = messagesList[0] || 'No data'}
+    
+    // Check Password Function
+    function checkPassword() {
+    
+      let score = getScore()
+      updateScore(score)
+    
+    }
+    
+    // Get Score Function
+    function getScore() {
+    
+      let score = 0
+    
+      let regexLower = new RegExp('(?=.*[a-z])')
+      let regexUpper = new RegExp('(?=.*[A-Z])')
+      let regexDigits = new RegExp('(?=.*[0-9])')
+      // For length score print user selection or default value
+      let regexLength = new RegExp('(?=.{' + pswMinLength + ',})')
+    
+      if (passwordInputValue.match(regexLower)) { ++score }
+      if (passwordInputValue.match(regexUpper)) { ++score }
+      if (passwordInputValue.match(regexDigits)) { ++score }
+      if (passwordInputValue.match(regexLength)) { ++score }
+    
+      if (score === 0 && passwordInputValue.length > 0) { ++score }
+    
+      return score
+    
+    }
+    
+    // Show Score Function
+    function updateScore(score) {
+      switch(score) {
+        case 1:
+          scoreBar.className = 'password-strength-meter-score psms-25'
+          if (scoreMessage) { scoreMessage.textContent = messagesList[1] || 'Too simple' }
+          containerElement.dispatchEvent(new Event('onScore1', { bubbles: true }))
+          break
+        case 2:
+          scoreBar.className = 'password-strength-meter-score psms-50'
+          if (scoreMessage) { scoreMessage.textContent = messagesList[2] || 'Simple' }
+          containerElement.dispatchEvent(new Event('onScore2', { bubbles: true }))
+          break
+        case 3:
+          scoreBar.className = 'password-strength-meter-score psms-75'
+          if (scoreMessage) { scoreMessage.textContent = messagesList[3] || 'That\'s OK' }
+          containerElement.dispatchEvent(new Event('onScore3', { bubbles: true }))
+          break
+        case 4:
+          scoreBar.className = 'password-strength-meter-score psms-100'
+          if (scoreMessage) { scoreMessage.textContent = messagesList[4] || 'Great password!' }
+          containerElement.dispatchEvent(new Event('onScore4', { bubbles: true }))
+          break
+        default:
+          scoreBar.className = 'password-strength-meter-score'
+          if (scoreMessage) { scoreMessage.textContent = messagesList[0] || 'No data' }
+          containerElement.dispatchEvent(new Event('onScore0', { bubbles: true }))
+      }
+    }
+    
+    // Return anonymous object with properties
+    return {
+      containerElement,
+      getScore
+    }
+    
+    }
+      </script>
+
+
+</head>
+<body>
+    
+    <div class ="parent">
+        <div class ="container">
+            <i class="far fa-user-circle fa-5x"></i>
+            <h2>Sign Up</h2>
+             <form>
+                <input  type="text" name="name" class="name" placeholder="Name"  >
+                <br/>
+                 <input  type="email" name="email" class="email" placeholder="Email"  >
+                 <br/>
+                 <input  type="password" name="password" class="password" placeholder="Password" id="psw-input" >
+                 <br/>
+                 <div id="pswmeter" class="mt-3" style="margin-top: 20px;"></div>
+                  <div id="pswmeter-message" class="mt-3"></div>
+                  
+                  <small class="form-text text-muted mt-3"></small>
+
+
+                  <div class="icons">
+                      
+                    <i class="fab fa-google fa-2x" style="color:#F4B400;" onclick=""></i>
+                    <i class="fab fa-facebook fa-2x" ></i>
+                  </div>
+                 
+                <br/>
+                 <input  type="button" name="LogIn" class="login" value="Log In" >
+             </form>
+        </div>
+    </div>
+
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="pswmeter.min.js"></script>
+    <script>
+    
+    // Run pswmeter with options
+    const myPassMeter = passwordStrengthMeter({
+      containerElement: '#pswmeter',
+      passwordInput: '#psw-input',
+      showMessage: true,
+      messageContainer: '#pswmeter-message',
+      messagesList: [
+        'Write your password...',
+        'Easy peasy!',
+        'That is a simple one',
+        'That is better',
+        'Yeah! that password rocks ;)'
+      ],
+      height: 6,
+      borderRadius: 0,
+      pswMinLength: 8,
+      colorScore1: '#aaa',
+      colorScore2: '#aaa',
+      colorScore3: '#aaa',
+      colorScore4: 'limegreen'
+    });
+    
+    </script>
+
+
+</body>
+</html>
